@@ -35,4 +35,4 @@ public class Note {
 
     @CreationTimestamp
     private LocalDateTime updateDate;
-}
+};
