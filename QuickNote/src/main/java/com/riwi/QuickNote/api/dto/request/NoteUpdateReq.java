@@ -6,7 +6,15 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class NoteUpdateReq {
 
     @NotBlank(message = "Title required for upgrade")
