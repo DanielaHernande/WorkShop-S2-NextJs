@@ -5,12 +5,16 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.riwi.QuickNote.api.dto.request.NoteReq;
 import com.riwi.QuickNote.api.dto.response.NoteResp;
 import com.riwi.QuickNote.infrastructure.abstract_services.INoteService;
 import com.riwi.QuickNote.utils.enums.SortType;
@@ -45,5 +49,21 @@ public class NoteController {
         if (Objects.isNull(sortType)) sortType = SortType.NONE;
 
         return ResponseEntity.ok(this.noteService.getAll(page - 1, size, sortType));
+    };
+
+    // Create
+    @PostMapping
+    @Operation(summary = "Create a new note",
+               description = "Creates a new note with the provided details.")
+
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Note created successfully."),
+        @ApiResponse(responseCode = "400", description = "Invalid request. The provided data is incorrect."),
+        @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
+    public ResponseEntity<NoteResp> create(
+            @Validated @RequestBody NoteReq request) {
+
+        return ResponseEntity.ok(this.noteService.create(request));
     };
 };
