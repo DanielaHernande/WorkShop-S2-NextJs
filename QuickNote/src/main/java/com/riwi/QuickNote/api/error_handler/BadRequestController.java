@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,60 +13,60 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.riwi.QuickNote.api.dto.errors.BaseErrorResp;
 import com.riwi.QuickNote.api.dto.errors.ErrorsResp;
-import com.riwi.QuickNote.utils.exceptions.BadIdException;
+import com.riwi.QuickNote.utils.exceptions.BadRequestException;
 
+/*
+ * RestControllerAdvice = Controlador de errores 
+ */
 @RestControllerAdvice
+/**
+ * Status de error del controlador
+ */
 @ResponseStatus(code = HttpStatus.BAD_REQUEST)
 public class BadRequestController {
     
+    /*
+     * MethodArgumentNotValidException es la excepción que activa la libreria 
+     * de validación
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public BaseErrorResp handlerBadRequest(MethodArgumentNotValidException exception) {
+    public BaseErrorResp handleBadRequest(MethodArgumentNotValidException exception){
 
-        List<Map<String, String>> errors = new ArrayList<>();
+        List<Map<String,String>> errors = new ArrayList<>();
 
+        /*
+         * getBindingResult obtiene los resultados con el fiel y el error
+         * getFieldErrors obtiene la lista de los nombres del campo del error 
+         */
         exception.getBindingResult().getFieldErrors().forEach(e -> {
-
-            Map<String, String> error = new HashMap<>();
-
-            error.put("error", e.getDefaultMessage());
-            error.put("code", e.getField());
-
+            Map<String,String> error = new HashMap<>();
+            error.put("error", e.getDefaultMessage()); //agregar al map el error
+            error.put("field", e.getField()); //agregar al map en donde ocurrió el error
             errors.add(error);
         });
 
         return ErrorsResp.builder()
-        
-                .code(HttpStatus.BAD_REQUEST.value())
-                .status(HttpStatus.BAD_REQUEST.name())
-                .errors(errors)
+                .code(HttpStatus.BAD_REQUEST.value()) //400
+                .status(HttpStatus.BAD_REQUEST.name()) //BAD_REQUEST
+                .errors(errors) // [ { "field": "mal", "error": "mal"} ]
                 .build();
-    };
-
-    @ExceptionHandler(BadIdException.class)
-    public BaseErrorResp handlerIdError(BadIdException exception) {
-        
-        Map<String, String> error = new HashMap<>();
-
-        error.put("Error", "ID not found");
-        error.put("Entity", exception.getMessage());
-
-        return BaseErrorResp.builder()
-                .code(HttpStatus.NOT_FOUND.value())
-                .status(HttpStatus.NOT_FOUND.name())
-                .error(error)
-                .build();
-    };
+    }
 
     @ExceptionHandler(BadRequestException.class)
-    public BaseErrorResp handlerRequestError(BadRequestException exception) {
-        Map<String, String> errorResponse = new HashMap<>();
+    public BaseErrorResp handleError(BadRequestException exception){
+        List<Map<String,String>> errors = new ArrayList<>();
 
-        errorResponse.put("Error", exception.getMessage());
+        Map<String,String> error = new HashMap<>();
         
-        return BaseErrorResp.builder()
-                .code(HttpStatus.BAD_REQUEST.value())
-                .status(HttpStatus.BAD_REQUEST.name())
-                .error(errorResponse)
+        error.put("id", exception.getMessage());
+
+        errors.add(error);
+        
+        return ErrorsResp.builder()
+                .code(HttpStatus.BAD_REQUEST.value()) //400
+                .status(HttpStatus.BAD_REQUEST.name()) //BAD_REQUEST
+                .errors(errors) // [ { "field": "mal", "error": "mal"} ]
                 .build();
+
     };
 };

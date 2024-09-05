@@ -13,6 +13,7 @@ public interface NoteMapper extends GenericMapper<NoteReq, NoteResp, Note>{
 
     @Override
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "updateDate", ignore = true)
+    @Mapping(target = "dateCreation", ignore = true)
+    @Mapping(target = "dateUpdate", ignore = true)
     Note toEntity(NoteReq request);
 };

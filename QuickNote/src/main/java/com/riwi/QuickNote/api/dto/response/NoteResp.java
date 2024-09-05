@@ -16,5 +16,6 @@ public class NoteResp {
     private Long id;
     private String title;
     private String content;
+    private LocalDateTime dateUpdate;
     private LocalDateTime dateCreation;
 };

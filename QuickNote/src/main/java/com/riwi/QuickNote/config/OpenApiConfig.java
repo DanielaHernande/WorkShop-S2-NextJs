@@ -13,3 +13,5 @@ import io.swagger.v3.oas.annotations.info.Info;
 public class OpenApiConfig {
 
 };
+
+// package com.riwi.QuickNote.api.error_handler;

@@ -7,7 +7,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,5 +67,23 @@ public class NoteController {
             @Validated @RequestBody NoteReq request) {
 
         return ResponseEntity.ok(this.noteService.create(request));
+    };
+
+    // Update
+    @PutMapping(path = "/{id}")
+    @Operation(summary = "Update an existing note",
+               description = "Updates the details of an existing note with the specified ID.")
+
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Note updated successfully."),
+            @ApiResponse(responseCode = "400", description = "Invalid request. The provided data is incorrect."),
+            @ApiResponse(responseCode = "404", description = "Note not found with the specified ID."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
+    public ResponseEntity<NoteResp> update(
+            @Validated @RequestBody NoteReq request,
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(this.noteService.update(request, id));
     };
 };

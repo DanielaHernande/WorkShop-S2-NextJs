@@ -30,25 +30,24 @@ public class NoteService implements INoteService{
     // Create
     @Override
     public NoteResp create(NoteReq request) {
-
+        
         Note note = noteMapper.toEntity(request);
-
+        
         return noteMapper.toEntityResponse(this.noteRepository.save(note));
     };
-
+    
     // Update
     @SuppressWarnings("unused")
     @Override
     public NoteResp update(NoteReq request, Long id) {
 
-        Note note = this.find(id);
-
+        Note note = find(id);
+    
         Note noteUpdate = this.noteMapper.toEntity(request);
 
         noteUpdate.setId(id);
 
         return this.noteMapper.toEntityResponse(this.noteRepository.save(noteUpdate));
-
     };
 
     // Delete
