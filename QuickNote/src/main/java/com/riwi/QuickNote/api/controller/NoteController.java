@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -85,5 +86,22 @@ public class NoteController {
             @PathVariable Long id) {
 
         return ResponseEntity.ok(this.noteService.update(request, id));
+    };
+
+    // Delete
+    @DeleteMapping(path = "/{id}")
+    @Operation(summary = "Delete a note",
+               description = "Deletes the note with the specified ID.")
+               
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Note deleted successfully."),
+            @ApiResponse(responseCode = "404", description = "Note not found with the specified ID."),
+            @ApiResponse(responseCode = "500", description = "Internal server error.")
+    })
+    public ResponseEntity<Void> delete(
+            @PathVariable Long id) {
+
+        this.noteService.delete(id);
+        return ResponseEntity.noContent().build();
     };
 };
