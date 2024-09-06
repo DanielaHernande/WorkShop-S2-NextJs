@@ -54,6 +54,20 @@ public class NoteController {
         return ResponseEntity.ok(this.noteService.getAll(page - 1, size, sortType));
     };
 
+    // Obtner por id
+    @GetMapping("/{id}")
+    @Operation(summary = "Find note by ID",
+               description = "Returns the note with the specified ID.")
+               
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation. Returns the note."),
+            @ApiResponse(responseCode = "404", description = "Note not found with the specified ID.")
+    })
+    public ResponseEntity<NoteResp> get(@PathVariable Long id) {
+
+        return ResponseEntity.ok(this.noteService.get(id));
+    };
+
     // Create
     @PostMapping
     @Operation(summary = "Create a new note",

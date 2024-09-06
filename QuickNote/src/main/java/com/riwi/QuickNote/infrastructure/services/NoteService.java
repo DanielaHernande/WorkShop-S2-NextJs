@@ -13,6 +13,7 @@ import com.riwi.QuickNote.domain.repositories.NoteRepository;
 import com.riwi.QuickNote.infrastructure.abstract_services.INoteService;
 import com.riwi.QuickNote.infrastructure.helpers.mappers.NoteMapper;
 import com.riwi.QuickNote.utils.enums.SortType;
+import com.riwi.QuickNote.utils.exceptions.BadIdException;
 import com.riwi.QuickNote.utils.exceptions.BadRequestException;
 
 import lombok.AllArgsConstructor;
@@ -34,6 +35,15 @@ public class NoteService implements INoteService{
         Note note = noteMapper.toEntity(request);
         
         return noteMapper.toEntityResponse(this.noteRepository.save(note));
+    };
+
+    @Override
+    public NoteResp get(Long id) {
+
+        Note note = noteRepository.findById(id)
+                        .orElseThrow(() -> new BadIdException("Note not found with ID:" + id));
+
+        return noteMapper.toEntityResponse(note);
     };
     
     // Update
@@ -83,5 +93,6 @@ public class NoteService implements INoteService{
 
         return this.noteRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException("There are no notes with this id"));
-    };
+    }
+
 };
