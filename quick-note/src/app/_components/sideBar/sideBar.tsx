@@ -5,7 +5,7 @@ export default function SideBar() {
     <div className="hidden bg-[#3e4046] w-1/6 h-dvh md:w-1/4 xl:w-1/6 sm:block rounded-r-lg">
       <div className="flex justify-center p-8">
         <Image
-          src="/img1.jpg"
+          src="/img2.png"
           alt="referencia"
           width={100}
           height={100}

@@ -1,4 +1,10 @@
-export default function CardNote() {
+export default async function CardNote() {
+
+    const res = await fetch('http://localhost:8080/api/v1/notes');
+    const json = await res.json;
+    console.log(json);
+    console.log("hola");
+
     return (
         <div className="flex flex-wrap p-4">
 
