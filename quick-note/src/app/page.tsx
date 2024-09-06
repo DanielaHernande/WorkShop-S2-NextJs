@@ -1,6 +1,7 @@
+import SideBar from "./_components/sideBar/sideBar";
 
 export default function Home() {
   return (
-    <h1>gola</h1>
+    <SideBar />
   );
 }

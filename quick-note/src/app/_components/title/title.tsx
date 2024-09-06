@@ -10,6 +10,6 @@ const Title = () => {
             <h1 className="text-2xl font-bold text-[#B4C3CC] cursor-pointer" onClick={() => router.push("/")}>Quick-<span className="font-medium text-[#F4FEFE]">Note</span></h1>
         </div>
     );
-}
+};
  
 export default Title;
