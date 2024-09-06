@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function SideBar() {
   return (
-    <div className="hidden bg-[#534145] w-1/6 h-dvh md:w-1/5 xl:w-1/6 sm:block rounded-r-lg">
+    <div className="hidden bg-[#3e4046] w-1/6 h-dvh md:w-1/4 xl:w-1/6 sm:block rounded-r-lg">
       <div className="flex justify-center p-8">
         <Image
           src="/img1.jpg"

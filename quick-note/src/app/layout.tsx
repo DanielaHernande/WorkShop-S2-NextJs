@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { Caveat } from "next/font/google";
 import "./globals.css";
 import Title from "./_components/title/title";
+import SideBar from "./_components/sideBar/sideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 const caveat = Caveat({ subsets: ["latin"] });
@@ -21,7 +22,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={caveat.className}>
         <Title />
-        {children}
+        <div className="flex">
+          <SideBar />
+          <div className="flex-1">{children}</div>
+        </div>
       </body>
     </html>
   );

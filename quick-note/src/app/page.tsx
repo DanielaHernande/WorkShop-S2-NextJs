@@ -1,7 +1,9 @@
-import SideBar from "./_components/sideBar/sideBar";
+import CardNote from "./_components/cardNote/cardNote";
 
 export default function Home() {
   return (
-    <SideBar />
+    <div >
+      <CardNote />
+    </div>
   );
 }
