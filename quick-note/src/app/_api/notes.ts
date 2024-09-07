@@ -1,5 +1,5 @@
 // Get Id
-const getId = async (id: number) => {
+export const getId = async (id: number) => {
     const res = await fetch('http://localhost:8080/api/v1/notes/${id}');
 
     if(!res.ok) throw new Error('Error al encontrar la Nota');
@@ -8,7 +8,7 @@ const getId = async (id: number) => {
 };
 
 // Get All
-const getAll = async (id: number) => {
+export const getAll = async (id: number) => {
     const res = await fetch('http://localhost:8080/api/v1/notes');
 
     if(!res.ok) throw new Error('Error al encontrar las Notas');
@@ -17,7 +17,7 @@ const getAll = async (id: number) => {
 };
 
 // Create
-const createNote = async (note: {title: string; content: string}) => {
+export const createNote = async (note: {title: string; content: string}) => {
 
     const res = await fetch('http://localhost:8080/api/v1/notes', {
         method: 'POST',
@@ -34,7 +34,7 @@ const createNote = async (note: {title: string; content: string}) => {
 };
 
 // Update
-const update = async (id: number, note: {title: string, content: string}) => {
+export const update = async (id: number, note: {title: string, content: string}) => {
 
     const res = await fetch('http://localhost:8080/api/v1/notes/${id}', {
         method: 'PUT',
