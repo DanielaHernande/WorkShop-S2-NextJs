@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { createNote } from "@/app/_api/notes";
-import { useRouter } from "next/navigation";
+import BtnBack from "../_components/btnBack/btnBack";
 
 export default function CreateNote() {
-  const router = useRouter();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -50,12 +49,7 @@ export default function CreateNote() {
             Crear Nota
           </button>
 
-          <button
-            className="bg-red-600 text-white py-2 px-4 rounded"
-            onClick={() => router.push("/")}
-          >
-            Cancelar
-          </button>
+          <BtnBack />
         </div>
       </form>
     </>
